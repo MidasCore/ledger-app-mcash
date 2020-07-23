@@ -65,13 +65,13 @@ python -m ledgerblue.loadApp \
 --fileName bin/app.hex \
 --icon `docker run --rm -v "$(pwd)":/mcash_ledger -w /mcash_ledger ledger-chain sh -c 'python $BOLOS_SDK/icon.py nanos_app_mcash.gif hexbitmaponly'` \
 --curve secp256k1 \
---path "44'/2048" \
+--path "44'/60'" \
 --apdu \
 --appName "MCashChain" \
 --appVersion `cat ./VERSION` \
 --appFlags 0x40 \
+--dataSize $((0x`cat debug/app.map |grep _envram_data | tr -s ' ' | cut -f2 -d' '|cut -f2 -d'x'` - 0x`cat debug/app.map |grep _nvram_data | tr -s ' ' | cut -f2 -d' '|cut -f2 -d'x'`)) \
 --delete \
---dataSize `cat debug/app.map | grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '` \
 --tlv 
 ```
 
@@ -96,17 +96,17 @@ See step 2 above.
 ### Step 3 - Load HEX file
 ```bash
 python -m ledgerblue.loadApp \
---targetId 0x31100003 \
---fileName NAME_OF_PRECOMPILED_HEX_HERE.hex \
---icon 0100000000ffffff0000000000fc000c0f3814c822103f101120092005400340018001800000000000 \
+--targetId 0x31100004 \
+--fileName release/app.hex.0.1.1 \
+--icon 0100000000ffffff00ffffffffffffffff3ff0bff70ff4aff52ff0effd0ffcffffffffffffffffffff \
 --curve secp256k1 \
---path "44'/2048" \
+--path "44'/60'" \
 --apdu \
---appName "Mcash Chain" \
---appVersion "VERSION_NUMBER" \
+--appName "MCashChain" \
+--appVersion "0.1.1" \
 --appFlags 0x40 \
 --delete \
---dataSize DATA_SIZE_OF_PRECOMPILED_HEX \
+--dataSize 64 \
 --tlv 
 ```
 Replace `NAME_OF_PRECOMPILED_HEX_HERE.hex` with the location and name of the pre-compiled HEX file.

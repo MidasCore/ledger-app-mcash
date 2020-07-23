@@ -1,4 +1,4 @@
-FROM zondax/ledger-docker-bolos
+FROM ducnd412/mybolos
 
 ENV BOLOS_ENV=/opt/bolos
 ENV BOLOS_SDK=$BOLOS_ENV/nanos-secure-sdk
@@ -18,4 +18,4 @@ RUN cd /tmp \
 make install
 
 
-USER test
+USER root
